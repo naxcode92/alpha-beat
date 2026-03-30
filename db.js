@@ -1,11 +1,8 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: process.env.DB_USER || 'flashuser',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'flashcards',
-  password: process.env.DB_PASSWORD || 'flashpass123',
-  port: process.env.DB_PORT || 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
 });
 
 async function initDB() {

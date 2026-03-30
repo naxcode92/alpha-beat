@@ -8,6 +8,7 @@ const { pool, initDB } = require('./db');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -16,7 +17,12 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'hindi-flashcards-secret-key-change-in-prod',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    secure: !!process.env.RAILWAY_ENVIRONMENT,
+    sameSite: 'lax',
+  },
+  proxy: !!process.env.RAILWAY_ENVIRONMENT
 }));
 
 // Auth middleware
