@@ -92,10 +92,54 @@ const PRESETS = [
   },
 ];
 
+// === WORD OF THE DAY ===
+const WORD_OF_THE_DAY_POOL = [
+  { hindi: 'pyaar', english: 'love' },
+  { hindi: 'dost', english: 'friend' },
+  { hindi: 'paani', english: 'water' },
+  { hindi: 'khana', english: 'food' },
+  { hindi: 'ghar', english: 'home' },
+  { hindi: 'kitaab', english: 'book' },
+  { hindi: 'sapna', english: 'dream' },
+  { hindi: 'raat', english: 'night' },
+  { hindi: 'din', english: 'day' },
+  { hindi: 'suraj', english: 'sun' },
+  { hindi: 'chaand', english: 'moon' },
+  { hindi: 'taara', english: 'star' },
+  { hindi: 'baarish', english: 'rain' },
+  { hindi: 'hawa', english: 'wind' },
+  { hindi: 'phool', english: 'flower' },
+  { hindi: 'ped', english: 'tree' },
+  { hindi: 'nadi', english: 'river' },
+  { hindi: 'pahad', english: 'mountain' },
+  { hindi: 'samundar', english: 'ocean' },
+  { hindi: 'aasmaan', english: 'sky' },
+  { hindi: 'zameen', english: 'earth / ground' },
+  { hindi: 'aag', english: 'fire' },
+  { hindi: 'khushi', english: 'happiness' },
+  { hindi: 'umeed', english: 'hope' },
+  { hindi: 'shakti', english: 'power / strength' },
+  { hindi: 'shanti', english: 'peace' },
+  { hindi: 'samay', english: 'time' },
+  { hindi: 'safar', english: 'journey' },
+  { hindi: 'zindagi', english: 'life' },
+  { hindi: 'rang', english: 'color' },
+  { hindi: 'awaaz', english: 'voice / sound' },
+];
+
+function getTodaysWord() {
+  // Deterministic pick based on date so everyone sees the same word each day
+  const today = new Date();
+  const dayIndex = Math.floor(today.getTime() / 86400000) % WORD_OF_THE_DAY_POOL.length;
+  return WORD_OF_THE_DAY_POOL[dayIndex];
+}
+
 // === STATE ===
 let cards = [];
+let studyDeck = []; // shuffled or ordered copy for study mode
 let currentIndex = 0;
 let showHindiFirst = true;
+let shuffleMode = false;
 let cardsStudiedThisSession = 0;
 let authMode = 'login'; // 'login' or 'register'
 
@@ -135,6 +179,7 @@ async function checkAuth() {
     const user = await api('/api/auth/me');
     showView('home');
     $('#home-username').textContent = user.username;
+    showWordOfTheDay();
   } catch {
     showView('auth');
   }
@@ -165,6 +210,7 @@ $('#auth-form').addEventListener('submit', async (e) => {
     $('#home-username').textContent = user.username;
     $('#auth-form').reset();
     showView('home');
+    showWordOfTheDay();
   } catch (err) {
     errEl.textContent = err.message;
     errEl.hidden = false;
@@ -350,9 +396,16 @@ document.querySelectorAll('.btn-side').forEach(btn => {
   });
 });
 
+// Shuffle toggle
+$('#shuffle-toggle').addEventListener('click', () => {
+  shuffleMode = !shuffleMode;
+  $('#shuffle-toggle').classList.toggle('active', shuffleMode);
+});
+
 // Start studying
 $('#start-study').addEventListener('click', () => {
   if (cards.length === 0) return;
+  studyDeck = shuffleMode ? shuffleArray(cards) : [...cards];
   $('#study-setup').hidden = true;
   $('#study-area').hidden = false;
   currentIndex = 0;
@@ -362,31 +415,26 @@ $('#start-study').addEventListener('click', () => {
 $('#go-create-from-study').addEventListener('click', () => showView('create'));
 
 function renderStudyCard() {
-  const card = cards[currentIndex];
+  const card = studyDeck[currentIndex];
   if (!card) return;
 
   const flashcard = $('#flashcard');
   flashcard.classList.remove('flipped');
 
-  const frontLabel = $('#front-label');
-  const frontText = $('#front-text');
-  const backLabel = $('#back-label');
-  const backText = $('#back-text');
-
   if (showHindiFirst) {
-    frontLabel.textContent = 'HINDI';
-    frontText.textContent = card.hindi;
-    backLabel.textContent = 'ENGLISH';
-    backText.textContent = card.english;
+    $('#front-label').textContent = 'HINDI';
+    $('#front-text').textContent = card.hindi;
+    $('#back-label').textContent = 'ENGLISH';
+    $('#back-text').textContent = card.english;
   } else {
-    frontLabel.textContent = 'ENGLISH';
-    frontText.textContent = card.english;
-    backLabel.textContent = 'HINDI';
-    backText.textContent = card.hindi;
+    $('#front-label').textContent = 'ENGLISH';
+    $('#front-text').textContent = card.english;
+    $('#back-label').textContent = 'HINDI';
+    $('#back-text').textContent = card.hindi;
   }
 
   $('#current-card-num').textContent = currentIndex + 1;
-  $('#total-cards-num').textContent = cards.length;
+  $('#total-cards-num').textContent = studyDeck.length;
 }
 
 // Flip on tap
@@ -396,15 +444,15 @@ $('#flashcard-container').addEventListener('click', () => {
 
 // Navigation
 $('#prev-card').addEventListener('click', () => {
-  if (cards.length === 0) return;
-  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+  if (studyDeck.length === 0) return;
+  currentIndex = (currentIndex - 1 + studyDeck.length) % studyDeck.length;
   renderStudyCard();
 });
 
 $('#next-card').addEventListener('click', () => {
-  if (cards.length === 0) return;
+  if (studyDeck.length === 0) return;
   cardsStudiedThisSession++;
-  currentIndex = (currentIndex + 1) % cards.length;
+  currentIndex = (currentIndex + 1) % studyDeck.length;
   renderStudyCard();
 });
 
@@ -423,11 +471,82 @@ $('#study-back').addEventListener('click', async () => {
   showView('home');
 });
 
+// === WORD OF THE DAY MODAL ===
+function showWordOfTheDay() {
+  const word = getTodaysWord();
+  const todayStr = new Date().toISOString().split('T')[0];
+  const lastShown = localStorage.getItem('wotd_last_shown');
+
+  // Only show once per day
+  if (lastShown === todayStr) return;
+  localStorage.setItem('wotd_last_shown', todayStr);
+
+  const modal = $('#wotd-modal');
+  $('#wotd-hindi').textContent = word.hindi;
+  $('#wotd-english').textContent = word.english;
+  modal.hidden = false;
+
+  // Check if already in cards
+  const alreadyHas = cards.some(c => c.hindi.toLowerCase() === word.hindi.toLowerCase());
+  const addBtn = $('#wotd-add-btn');
+  if (alreadyHas) {
+    addBtn.textContent = 'Already in your cards';
+    addBtn.disabled = true;
+    addBtn.classList.add('btn-wotd-done');
+  } else {
+    addBtn.textContent = '+ Add to My Cards';
+    addBtn.disabled = false;
+    addBtn.classList.remove('btn-wotd-done');
+  }
+}
+
+$('#wotd-close').addEventListener('click', () => {
+  $('#wotd-modal').hidden = true;
+});
+
+$('#wotd-add-btn').addEventListener('click', async () => {
+  const word = getTodaysWord();
+  const btn = $('#wotd-add-btn');
+  btn.disabled = true;
+  btn.textContent = '...';
+  try {
+    await api('/api/cards', { method: 'POST', body: { hindi: word.hindi, english: word.english } });
+    btn.textContent = 'Added!';
+    btn.classList.add('btn-wotd-done');
+    // Refresh cards
+    cards = await api('/api/cards');
+    $('#total-card-count').textContent = cards.length;
+    renderPresetPacks();
+  } catch (err) {
+    btn.textContent = 'Failed';
+    setTimeout(() => {
+      btn.textContent = '+ Add to My Cards';
+      btn.disabled = false;
+    }, 1500);
+  }
+});
+
+// Close modal on backdrop click
+$('#wotd-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    $('#wotd-modal').hidden = true;
+  }
+});
+
 // === UTILS ===
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 // === INIT ===

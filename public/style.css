@@ -744,6 +744,113 @@ body {
   }
 }
 
+/* === SHUFFLE BUTTON === */
+.btn-shuffle {
+  padding: 10px 20px;
+  background: var(--bg-dark);
+  border: 2px solid var(--bg-dark);
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+
+.btn-shuffle.active {
+  background: var(--indigo);
+  border-color: var(--indigo);
+  color: var(--white);
+}
+
+.btn-shuffle:active {
+  transform: scale(0.97);
+}
+
+/* === WORD OF THE DAY MODAL === */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 27, 31, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.wotd-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px 24px;
+  width: min(90vw, 360px);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: modalSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.wotd-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: var(--text-muted);
+}
+
+.wotd-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.06));
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.wotd-hindi {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--indigo);
+  margin-bottom: 12px;
+}
+
+.wotd-divider {
+  height: 2px;
+  width: 40px;
+  margin: 0 auto 12px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.wotd-english {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.wotd-add {
+  font-size: 0.95rem;
+}
+
+.btn-wotd-done {
+  background: var(--bg-dark) !important;
+  color: var(--teal) !important;
+  box-shadow: none !important;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
