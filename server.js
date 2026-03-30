@@ -250,20 +250,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-async function start() {
-  await initDB();
-  // Add unique constraint for study sessions upsert
-  try {
-    await pool.query(`
-      ALTER TABLE study_sessions
-      ADD CONSTRAINT study_sessions_user_date_unique UNIQUE (user_id, studied_at)
-    `);
-  } catch (err) {
-    // Constraint may already exist
-  }
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-}
+// Start HTTP server immediately so Railway sees a healthy process
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
 
-start();
+// Then initialize DB in the background (with retries)
+initDB().catch(err => {
+  console.error('Database initialization failed:', err.message);
+});
