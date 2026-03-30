@@ -1,0 +1,16 @@
+{
+  "name": "hindi-flashcard-app",
+  "version": "1.0.0",
+  "description": "Hindi flashcard app with create and study modes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-pg-simple": "^9.0.1",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "pg": "^8.13.0"
+  }
+}

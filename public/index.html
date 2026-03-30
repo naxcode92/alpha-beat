@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#FF9933">
+  <title>Hindi Flashcards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- AUTH VIEW -->
+  <section id="auth-view" class="view">
+    <div class="auth-container">
+      <div class="ornament-top"></div>
+      <h1 class="app-title">Hindi Flashcards</h1>
+      <p class="app-subtitle">Learn Hindi, one card at a time</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Log In</button>
+        <button class="auth-tab" data-tab="register">Sign Up</button>
+      </div>
+
+      <form id="auth-form" autocomplete="off">
+        <div class="input-group">
+          <label for="auth-username">Username</label>
+          <input type="text" id="auth-username" name="username" required minlength="3" maxlength="50" autocomplete="username">
+        </div>
+        <div class="input-group">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" name="password" required minlength="4" autocomplete="current-password">
+        </div>
+        <div id="auth-error" class="error-msg" hidden></div>
+        <button type="submit" id="auth-submit" class="btn btn-primary">Log In</button>
+      </form>
+      <div class="ornament-bottom"></div>
+    </div>
+  </section>
+
+  <!-- HOME VIEW -->
+  <section id="home-view" class="view" hidden>
+    <header class="top-bar">
+      <h2 class="greeting">Namaste, <span id="home-username"></span></h2>
+      <button id="logout-btn" class="btn-icon" title="Logout">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F525;</div>
+        <div class="stat-value" id="stat-streak">0</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x2B50;</div>
+        <div class="stat-value" id="stat-best">0</div>
+        <div class="stat-label">Best Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F4DA;</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">Cards Studied</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F4C5;</div>
+        <div class="stat-value" id="stat-days">0</div>
+        <div class="stat-label">Days Active</div>
+      </div>
+    </div>
+
+    <div class="home-actions">
+      <button id="go-create" class="btn btn-large btn-create">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Create Cards
+      </button>
+      <button id="go-study" class="btn btn-large btn-study">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Study Cards
+      </button>
+    </div>
+
+    <div class="card-count-info">
+      <span id="total-card-count">0</span> cards in your collection
+    </div>
+  </section>
+
+  <!-- CREATE VIEW -->
+  <section id="create-view" class="view" hidden>
+    <header class="top-bar">
+      <button id="create-back" class="btn-icon" title="Back">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <h2>Create Cards</h2>
+      <div style="width:40px"></div>
+    </header>
+
+    <form id="card-form" class="card-form">
+      <div class="input-group">
+        <label for="hindi-input">Hindi (romanized)</label>
+        <input type="text" id="hindi-input" placeholder="e.g. namaste" required>
+      </div>
+      <div class="input-group">
+        <label for="english-input">English</label>
+        <input type="text" id="english-input" placeholder="e.g. hello" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Card</button>
+    </form>
+
+    <div class="divider-ornament"></div>
+
+    <div id="card-list" class="card-list">
+      <!-- Cards rendered here -->
+    </div>
+    <div id="no-cards-create" class="empty-state" hidden>
+      <p>No cards yet. Add your first one above!</p>
+    </div>
+  </section>
+
+  <!-- STUDY VIEW -->
+  <section id="study-view" class="view" hidden>
+    <header class="top-bar">
+      <button id="study-back" class="btn-icon" title="Back">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <h2>Study</h2>
+      <div class="card-counter"><span id="current-card-num">0</span> / <span id="total-cards-num">0</span></div>
+    </header>
+
+    <!-- Side selection (shown before studying) -->
+    <div id="study-setup" class="study-setup">
+      <h3>Which side first?</h3>
+      <div class="side-toggle">
+        <button class="btn btn-side active" data-side="hindi">Hindi first</button>
+        <button class="btn btn-side" data-side="english">English first</button>
+      </div>
+      <button id="start-study" class="btn btn-primary btn-large">Start Studying</button>
+      <div id="no-cards-study" class="empty-state" hidden>
+        <p>No cards to study yet!</p>
+        <button id="go-create-from-study" class="btn btn-primary">Create Some Cards</button>
+      </div>
+    </div>
+
+    <!-- Active study area -->
+    <div id="study-area" class="study-area" hidden>
+      <div class="flashcard-container" id="flashcard-container">
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <div class="card-label" id="front-label">HINDI</div>
+            <div class="card-text" id="front-text"></div>
+            <div class="tap-hint">tap to flip</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="card-label" id="back-label">ENGLISH</div>
+            <div class="card-text" id="back-text"></div>
+            <div class="tap-hint">tap to flip</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-nav">
+        <button id="prev-card" class="btn btn-nav">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Prev
+        </button>
+        <button id="next-card" class="btn btn-nav">
+          Next
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
