@@ -437,9 +437,67 @@ function renderStudyCard() {
   $('#total-cards-num').textContent = studyDeck.length;
 }
 
-// Flip on tap
-$('#flashcard-container').addEventListener('click', () => {
-  $('#flashcard').classList.toggle('flipped');
+// === SWIPE & TAP GESTURES ===
+let touchStartX = 0;
+let touchStartY = 0;
+let touchStartTime = 0;
+let isSwiping = false;
+
+const flashcardContainer = $('#flashcard-container');
+
+flashcardContainer.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchStartTime = Date.now();
+  isSwiping = false;
+}, { passive: true });
+
+flashcardContainer.addEventListener('touchmove', (e) => {
+  const dx = e.touches[0].clientX - touchStartX;
+  const dy = e.touches[0].clientY - touchStartY;
+  if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy)) {
+    isSwiping = true;
+  }
+}, { passive: true });
+
+flashcardContainer.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const elapsed = Date.now() - touchStartTime;
+
+  if (isSwiping && Math.abs(dx) > 50 && elapsed < 500) {
+    if (dx < 0) {
+      // Swipe left → next card
+      if (studyDeck.length === 0) return;
+      cardsStudiedThisSession++;
+      currentIndex = (currentIndex + 1) % studyDeck.length;
+      flashcardContainer.classList.add('swipe-left');
+      setTimeout(() => {
+        renderStudyCard();
+        flashcardContainer.classList.remove('swipe-left');
+        flashcardContainer.classList.add('swipe-enter-right');
+        setTimeout(() => flashcardContainer.classList.remove('swipe-enter-right'), 200);
+      }, 150);
+    } else {
+      // Swipe right → prev card
+      if (studyDeck.length === 0) return;
+      currentIndex = (currentIndex - 1 + studyDeck.length) % studyDeck.length;
+      flashcardContainer.classList.add('swipe-right');
+      setTimeout(() => {
+        renderStudyCard();
+        flashcardContainer.classList.remove('swipe-right');
+        flashcardContainer.classList.add('swipe-enter-left');
+        setTimeout(() => flashcardContainer.classList.remove('swipe-enter-left'), 200);
+      }, 150);
+    }
+    isSwiping = false;
+    return;
+  }
+
+  // Tap (not a swipe) → flip
+  if (!isSwiping) {
+    $('#flashcard').classList.toggle('flipped');
+  }
+  isSwiping = false;
 });
 
 // Navigation

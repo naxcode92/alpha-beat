@@ -721,6 +721,15 @@ body {
   max-width: 320px;
 }
 
+.swipe-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
 .btn-nav {
   flex: 1;
   padding: 14px;
@@ -763,6 +772,35 @@ body {
 
 .btn-shuffle:active {
   transform: scale(0.97);
+}
+
+/* === SWIPE ANIMATIONS === */
+.flashcard-container.swipe-left {
+  animation: swipeOutLeft 0.15s ease-in forwards;
+}
+.flashcard-container.swipe-right {
+  animation: swipeOutRight 0.15s ease-in forwards;
+}
+.flashcard-container.swipe-enter-right {
+  animation: swipeInRight 0.2s ease-out forwards;
+}
+.flashcard-container.swipe-enter-left {
+  animation: swipeInLeft 0.2s ease-out forwards;
+}
+
+@keyframes swipeOutLeft {
+  to { opacity: 0; transform: translateX(-60px) scale(0.95); }
+}
+@keyframes swipeOutRight {
+  to { opacity: 0; transform: translateX(60px) scale(0.95); }
+}
+@keyframes swipeInRight {
+  from { opacity: 0; transform: translateX(60px) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes swipeInLeft {
+  from { opacity: 0; transform: translateX(-60px) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
 /* === WORD OF THE DAY MODAL === */
