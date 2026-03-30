@@ -1,3 +1,97 @@
+// === PRESET CARD PACKS ===
+const PRESETS = [
+  {
+    id: 'sentences',
+    name: 'Simple Sentences',
+    icon: '\u{1F4AC}',
+    desc: '10 everyday phrases',
+    cards: [
+      { hindi: 'namaste', english: 'hello' },
+      { hindi: 'dhanyavaad', english: 'thank you' },
+      { hindi: 'haan', english: 'yes' },
+      { hindi: 'nahin', english: 'no' },
+      { hindi: 'maaf kijiye', english: 'excuse me / sorry' },
+      { hindi: 'aap kaise hain?', english: 'how are you?' },
+      { hindi: 'main theek hoon', english: 'I am fine' },
+      { hindi: 'mera naam ... hai', english: 'my name is ...' },
+      { hindi: 'kripya', english: 'please' },
+      { hindi: 'phir milenge', english: 'see you again' },
+    ],
+  },
+  {
+    id: 'animals',
+    name: 'Animals',
+    icon: '\u{1F42E}',
+    desc: '10 common animals',
+    cards: [
+      { hindi: 'kutha', english: 'dog' },
+      { hindi: 'billi', english: 'cat' },
+      { hindi: 'gaay', english: 'cow' },
+      { hindi: 'ghoda', english: 'horse' },
+      { hindi: 'haathi', english: 'elephant' },
+      { hindi: 'sher', english: 'lion' },
+      { hindi: 'bandar', english: 'monkey' },
+      { hindi: 'chidiya', english: 'bird' },
+      { hindi: 'machli', english: 'fish' },
+      { hindi: 'saanp', english: 'snake' },
+    ],
+  },
+  {
+    id: 'fruits',
+    name: 'Fruits',
+    icon: '\u{1F34E}',
+    desc: '10 popular fruits',
+    cards: [
+      { hindi: 'seb', english: 'apple' },
+      { hindi: 'kela', english: 'banana' },
+      { hindi: 'aam', english: 'mango' },
+      { hindi: 'angoor', english: 'grapes' },
+      { hindi: 'santara', english: 'orange' },
+      { hindi: 'tarbooz', english: 'watermelon' },
+      { hindi: 'ananas', english: 'pineapple' },
+      { hindi: 'amrood', english: 'guava' },
+      { hindi: 'nashpati', english: 'pear' },
+      { hindi: 'papita', english: 'papaya' },
+    ],
+  },
+  {
+    id: 'vegetables',
+    name: 'Vegetables',
+    icon: '\u{1F966}',
+    desc: '10 common vegetables',
+    cards: [
+      { hindi: 'aloo', english: 'potato' },
+      { hindi: 'pyaaz', english: 'onion' },
+      { hindi: 'tamatar', english: 'tomato' },
+      { hindi: 'gobhi', english: 'cauliflower' },
+      { hindi: 'palak', english: 'spinach' },
+      { hindi: 'gajar', english: 'carrot' },
+      { hindi: 'matar', english: 'peas' },
+      { hindi: 'bhindi', english: 'okra' },
+      { hindi: 'baigan', english: 'eggplant' },
+      { hindi: 'mirch', english: 'chili pepper' },
+    ],
+  },
+  {
+    id: 'numbers',
+    name: 'Numbers',
+    icon: '\u{1F522}',
+    desc: 'Numbers 1 to 10',
+    cards: [
+      { hindi: 'ek', english: 'one (1)' },
+      { hindi: 'do', english: 'two (2)' },
+      { hindi: 'teen', english: 'three (3)' },
+      { hindi: 'chaar', english: 'four (4)' },
+      { hindi: 'paanch', english: 'five (5)' },
+      { hindi: 'chhah', english: 'six (6)' },
+      { hindi: 'saat', english: 'seven (7)' },
+      { hindi: 'aath', english: 'eight (8)' },
+      { hindi: 'nau', english: 'nine (9)' },
+      { hindi: 'das', english: 'ten (10)' },
+    ],
+  },
+];
+
 // === STATE ===
 let cards = [];
 let currentIndex = 0;
@@ -96,6 +190,7 @@ async function loadHome() {
     $('#stat-total').textContent = stats.totalCardsStudied;
     $('#stat-days').textContent = stats.totalDays;
     $('#total-card-count').textContent = cards.length;
+    renderPresetPacks();
   } catch (err) {
     console.error('Failed to load home:', err);
   }
@@ -103,6 +198,60 @@ async function loadHome() {
 
 $('#go-create').addEventListener('click', () => showView('create'));
 $('#go-study').addEventListener('click', () => showView('study'));
+
+// === PRESET PACKS ===
+function renderPresetPacks() {
+  const container = $('#preset-packs');
+  if (!container) return;
+
+  // Check which packs the user already has (by matching hindi text of first card)
+  const existingHindi = new Set(cards.map(c => c.hindi.toLowerCase()));
+
+  container.innerHTML = PRESETS.map(pack => {
+    const alreadyAdded = pack.cards.every(c => existingHindi.has(c.hindi.toLowerCase()));
+    return `
+      <div class="pack-card ${alreadyAdded ? 'pack-added' : ''}" data-pack="${pack.id}">
+        <div class="pack-icon">${pack.icon}</div>
+        <div class="pack-info">
+          <div class="pack-name">${pack.name}</div>
+          <div class="pack-desc">${pack.desc}</div>
+        </div>
+        <button class="btn-pack ${alreadyAdded ? 'btn-pack-done' : ''}"
+                onclick="addPack('${pack.id}')" ${alreadyAdded ? 'disabled' : ''}>
+          ${alreadyAdded ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '+ Add'}
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function addPack(packId) {
+  const pack = PRESETS.find(p => p.id === packId);
+  if (!pack) return;
+
+  const btn = document.querySelector(`.pack-card[data-pack="${packId}"] .btn-pack`);
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '...';
+  }
+
+  try {
+    const newCards = await api('/api/cards/bulk', {
+      method: 'POST',
+      body: { cards: pack.cards },
+    });
+    cards = cards.concat(newCards);
+    $('#total-card-count').textContent = cards.length;
+    renderPresetPacks();
+  } catch (err) {
+    alert('Failed to add pack: ' + err.message);
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '+ Add';
+    }
+  }
+}
+window.addPack = addPack;
 
 // === CREATE CARDS ===
 async function loadCards() {

@@ -149,6 +149,35 @@ app.delete('/api/cards/:id', requireAuth, async (req, res) => {
   }
 });
 
+app.post('/api/cards/bulk', requireAuth, async (req, res) => {
+  const { cards: newCards } = req.body;
+  if (!Array.isArray(newCards) || newCards.length === 0) {
+    return res.status(400).json({ error: 'Cards array is required' });
+  }
+  try {
+    const values = [];
+    const placeholders = [];
+    let idx = 1;
+    for (const card of newCards) {
+      if (!card.hindi || !card.english) continue;
+      placeholders.push(`($${idx}, $${idx + 1}, $${idx + 2})`);
+      values.push(req.session.userId, card.hindi.trim(), card.english.trim());
+      idx += 3;
+    }
+    if (placeholders.length === 0) {
+      return res.status(400).json({ error: 'No valid cards provided' });
+    }
+    const result = await pool.query(
+      `INSERT INTO cards (user_id, hindi, english) VALUES ${placeholders.join(', ')} RETURNING *`,
+      values
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // --- Study Routes ---
 
 app.post('/api/study/session', requireAuth, async (req, res) => {

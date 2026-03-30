@@ -357,6 +357,110 @@ body {
   color: var(--teal);
 }
 
+/* === PRESET PACKS === */
+.preset-section {
+  margin-top: 8px;
+  padding-bottom: 24px;
+}
+
+.preset-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--indigo);
+  margin-bottom: 4px;
+}
+
+.preset-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.preset-packs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pack-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: opacity 0.2s;
+}
+
+.pack-card.pack-added {
+  opacity: 0.6;
+}
+
+.pack-icon {
+  font-size: 1.6rem;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.pack-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pack-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.pack-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.btn-pack {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: var(--white);
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-pack:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.btn-pack:disabled {
+  cursor: default;
+}
+
+.btn-pack-done {
+  background: var(--bg-dark);
+  color: var(--teal);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+}
+
 /* === CREATE VIEW === */
 .card-form {
   background: var(--white);
