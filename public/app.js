@@ -442,6 +442,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 let touchStartTime = 0;
 let isSwiping = false;
+let handledByTouch = false; // prevent click firing after touch
 
 const flashcardContainer = $('#flashcard-container');
 
@@ -450,6 +451,7 @@ flashcardContainer.addEventListener('touchstart', (e) => {
   touchStartY = e.touches[0].clientY;
   touchStartTime = Date.now();
   isSwiping = false;
+  handledByTouch = true;
 }, { passive: true });
 
 flashcardContainer.addEventListener('touchmove', (e) => {
@@ -498,6 +500,15 @@ flashcardContainer.addEventListener('touchend', (e) => {
     $('#flashcard').classList.toggle('flipped');
   }
   isSwiping = false;
+});
+
+// Click handler for desktop — suppressed on touch devices
+flashcardContainer.addEventListener('click', () => {
+  if (handledByTouch) {
+    handledByTouch = false;
+    return;
+  }
+  $('#flashcard').classList.toggle('flipped');
 });
 
 // Navigation
