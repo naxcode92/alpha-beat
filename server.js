@@ -149,6 +149,23 @@ app.delete('/api/cards/:id', requireAuth, async (req, res) => {
   }
 });
 
+app.patch('/api/cards/:id', requireAuth, async (req, res) => {
+  const { phonetic } = req.body;
+  try {
+    const result = await pool.query(
+      'UPDATE cards SET phonetic = $1 WHERE id = $2 AND user_id = $3 RETURNING *',
+      [(phonetic || '').trim(), req.params.id, req.session.userId]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Card not found' });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 app.post('/api/cards/bulk', requireAuth, async (req, res) => {
   const { cards: newCards } = req.body;
   if (!Array.isArray(newCards) || newCards.length === 0) {

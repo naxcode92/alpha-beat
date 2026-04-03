@@ -224,6 +224,36 @@ $('#logout-btn').addEventListener('click', async () => {
 });
 
 // === HOME ===
+// Build phonetic lookup from all known words
+const PHONETIC_LOOKUP = {};
+for (const pack of PRESETS) {
+  for (const c of pack.cards) {
+    PHONETIC_LOOKUP[c.hindi.toLowerCase()] = c.phonetic;
+  }
+}
+for (const w of WORD_OF_THE_DAY_POOL) {
+  PHONETIC_LOOKUP[w.hindi.toLowerCase()] = w.phonetic;
+}
+
+async function backfillPhonetics(cardData) {
+  const toUpdate = cardData.filter(c => !c.phonetic && PHONETIC_LOOKUP[c.hindi.toLowerCase()]);
+  if (toUpdate.length === 0) return;
+
+  // Update in parallel, silently
+  await Promise.all(toUpdate.map(async (card) => {
+    const phonetic = PHONETIC_LOOKUP[card.hindi.toLowerCase()];
+    try {
+      const updated = await api(`/api/cards/${card.id}`, {
+        method: 'PATCH',
+        body: { phonetic },
+      });
+      card.phonetic = updated.phonetic;
+    } catch (e) {
+      // Silently ignore
+    }
+  }));
+}
+
 async function loadHome() {
   try {
     const [stats, cardData] = await Promise.all([
@@ -237,6 +267,8 @@ async function loadHome() {
     $('#stat-days').textContent = stats.totalDays;
     $('#total-card-count').textContent = cards.length;
     renderPresetPacks();
+    // Backfill phonetics for cards added before this feature
+    backfillPhonetics(cards);
   } catch (err) {
     console.error('Failed to load home:', err);
   }
