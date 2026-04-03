@@ -431,11 +431,11 @@ function renderStudyCard() {
     $('#front-phonetic').textContent = phonetic;
     $('#back-label').textContent = 'ENGLISH';
     $('#back-text').textContent = card.english;
-    $('#back-phonetic').textContent = '';
+    $('#back-phonetic').textContent = phonetic;
   } else {
     $('#front-label').textContent = 'ENGLISH';
     $('#front-text').textContent = card.english;
-    $('#front-phonetic').textContent = '';
+    $('#front-phonetic').textContent = phonetic;
     $('#back-label').textContent = 'HINDI';
     $('#back-text').textContent = card.hindi;
     $('#back-phonetic').textContent = phonetic;
