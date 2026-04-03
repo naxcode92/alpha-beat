@@ -117,14 +117,14 @@ app.get('/api/cards', requireAuth, async (req, res) => {
 });
 
 app.post('/api/cards', requireAuth, async (req, res) => {
-  const { hindi, english } = req.body;
+  const { hindi, english, phonetic } = req.body;
   if (!hindi || !english) {
     return res.status(400).json({ error: 'Hindi and English text are required' });
   }
   try {
     const result = await pool.query(
-      'INSERT INTO cards (user_id, hindi, english) VALUES ($1, $2, $3) RETURNING *',
-      [req.session.userId, hindi.trim(), english.trim()]
+      'INSERT INTO cards (user_id, hindi, english, phonetic) VALUES ($1, $2, $3, $4) RETURNING *',
+      [req.session.userId, hindi.trim(), english.trim(), (phonetic || '').trim()]
     );
     res.json(result.rows[0]);
   } catch (err) {
@@ -160,15 +160,15 @@ app.post('/api/cards/bulk', requireAuth, async (req, res) => {
     let idx = 1;
     for (const card of newCards) {
       if (!card.hindi || !card.english) continue;
-      placeholders.push(`($${idx}, $${idx + 1}, $${idx + 2})`);
-      values.push(req.session.userId, card.hindi.trim(), card.english.trim());
-      idx += 3;
+      placeholders.push(`($${idx}, $${idx + 1}, $${idx + 2}, $${idx + 3})`);
+      values.push(req.session.userId, card.hindi.trim(), card.english.trim(), (card.phonetic || '').trim());
+      idx += 4;
     }
     if (placeholders.length === 0) {
       return res.status(400).json({ error: 'No valid cards provided' });
     }
     const result = await pool.query(
-      `INSERT INTO cards (user_id, hindi, english) VALUES ${placeholders.join(', ')} RETURNING *`,
+      `INSERT INTO cards (user_id, hindi, english, phonetic) VALUES ${placeholders.join(', ')} RETURNING *`,
       values
     );
     res.json(result.rows);

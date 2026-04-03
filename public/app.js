@@ -6,16 +6,16 @@ const PRESETS = [
     icon: '\u{1F4AC}',
     desc: '10 everyday phrases',
     cards: [
-      { hindi: 'namaste', english: 'hello' },
-      { hindi: 'dhanyavaad', english: 'thank you' },
-      { hindi: 'haan', english: 'yes' },
-      { hindi: 'nahin', english: 'no' },
-      { hindi: 'maaf kijiye', english: 'excuse me / sorry' },
-      { hindi: 'aap kaise hain?', english: 'how are you?' },
-      { hindi: 'main theek hoon', english: 'I am fine' },
-      { hindi: 'mera naam ... hai', english: 'my name is ...' },
-      { hindi: 'kripya', english: 'please' },
-      { hindi: 'phir milenge', english: 'see you again' },
+      { hindi: 'namaste', english: 'hello', phonetic: '/nuh-MUS-tay/' },
+      { hindi: 'dhanyavaad', english: 'thank you', phonetic: '/dhun-yuh-VAAD/' },
+      { hindi: 'haan', english: 'yes', phonetic: '/haahn/' },
+      { hindi: 'nahin', english: 'no', phonetic: '/nuh-HEEN/' },
+      { hindi: 'maaf kijiye', english: 'excuse me / sorry', phonetic: '/maaf kee-JEE-yay/' },
+      { hindi: 'aap kaise hain?', english: 'how are you?', phonetic: '/aap KAY-say hain/' },
+      { hindi: 'main theek hoon', english: 'I am fine', phonetic: '/main theek hoon/' },
+      { hindi: 'mera naam ... hai', english: 'my name is ...', phonetic: '/MAY-rah naam ... hai/' },
+      { hindi: 'kripya', english: 'please', phonetic: '/KRIP-yah/' },
+      { hindi: 'phir milenge', english: 'see you again', phonetic: '/phir MIL-en-gay/' },
     ],
   },
   {
@@ -24,16 +24,16 @@ const PRESETS = [
     icon: '\u{1F42E}',
     desc: '10 common animals',
     cards: [
-      { hindi: 'kutha', english: 'dog' },
-      { hindi: 'billi', english: 'cat' },
-      { hindi: 'gaay', english: 'cow' },
-      { hindi: 'ghoda', english: 'horse' },
-      { hindi: 'haathi', english: 'elephant' },
-      { hindi: 'sher', english: 'lion' },
-      { hindi: 'bandar', english: 'monkey' },
-      { hindi: 'chidiya', english: 'bird' },
-      { hindi: 'machli', english: 'fish' },
-      { hindi: 'saanp', english: 'snake' },
+      { hindi: 'kutha', english: 'dog', phonetic: '/KUT-tah/' },
+      { hindi: 'billi', english: 'cat', phonetic: '/BIL-lee/' },
+      { hindi: 'gaay', english: 'cow', phonetic: '/gaay/' },
+      { hindi: 'ghoda', english: 'horse', phonetic: '/GHO-dah/' },
+      { hindi: 'haathi', english: 'elephant', phonetic: '/HAA-thee/' },
+      { hindi: 'sher', english: 'lion', phonetic: '/share/' },
+      { hindi: 'bandar', english: 'monkey', phonetic: '/BUN-dur/' },
+      { hindi: 'chidiya', english: 'bird', phonetic: '/CHID-ee-yah/' },
+      { hindi: 'machli', english: 'fish', phonetic: '/MUCH-lee/' },
+      { hindi: 'saanp', english: 'snake', phonetic: '/saanp/' },
     ],
   },
   {
@@ -42,16 +42,16 @@ const PRESETS = [
     icon: '\u{1F34E}',
     desc: '10 popular fruits',
     cards: [
-      { hindi: 'seb', english: 'apple' },
-      { hindi: 'kela', english: 'banana' },
-      { hindi: 'aam', english: 'mango' },
-      { hindi: 'angoor', english: 'grapes' },
-      { hindi: 'santara', english: 'orange' },
-      { hindi: 'tarbooz', english: 'watermelon' },
-      { hindi: 'ananas', english: 'pineapple' },
-      { hindi: 'amrood', english: 'guava' },
-      { hindi: 'nashpati', english: 'pear' },
-      { hindi: 'papita', english: 'papaya' },
+      { hindi: 'seb', english: 'apple', phonetic: '/sayb/' },
+      { hindi: 'kela', english: 'banana', phonetic: '/KAY-lah/' },
+      { hindi: 'aam', english: 'mango', phonetic: '/aam/' },
+      { hindi: 'angoor', english: 'grapes', phonetic: '/un-GOOR/' },
+      { hindi: 'santara', english: 'orange', phonetic: '/sun-TUH-rah/' },
+      { hindi: 'tarbooz', english: 'watermelon', phonetic: '/tur-BOOZ/' },
+      { hindi: 'ananas', english: 'pineapple', phonetic: '/UH-nuh-naas/' },
+      { hindi: 'amrood', english: 'guava', phonetic: '/um-ROOD/' },
+      { hindi: 'nashpati', english: 'pear', phonetic: '/NASH-puh-tee/' },
+      { hindi: 'papita', english: 'papaya', phonetic: '/puh-PEE-tah/' },
     ],
   },
   {
@@ -60,16 +60,16 @@ const PRESETS = [
     icon: '\u{1F966}',
     desc: '10 common vegetables',
     cards: [
-      { hindi: 'aloo', english: 'potato' },
-      { hindi: 'pyaaz', english: 'onion' },
-      { hindi: 'tamatar', english: 'tomato' },
-      { hindi: 'gobhi', english: 'cauliflower' },
-      { hindi: 'palak', english: 'spinach' },
-      { hindi: 'gajar', english: 'carrot' },
-      { hindi: 'matar', english: 'peas' },
-      { hindi: 'bhindi', english: 'okra' },
-      { hindi: 'baigan', english: 'eggplant' },
-      { hindi: 'mirch', english: 'chili pepper' },
+      { hindi: 'aloo', english: 'potato', phonetic: '/ah-LOO/' },
+      { hindi: 'pyaaz', english: 'onion', phonetic: '/pyaaz/' },
+      { hindi: 'tamatar', english: 'tomato', phonetic: '/tuh-MAA-tur/' },
+      { hindi: 'gobhi', english: 'cauliflower', phonetic: '/GO-bhee/' },
+      { hindi: 'palak', english: 'spinach', phonetic: '/PAA-luk/' },
+      { hindi: 'gajar', english: 'carrot', phonetic: '/GAH-jur/' },
+      { hindi: 'matar', english: 'peas', phonetic: '/MUH-tur/' },
+      { hindi: 'bhindi', english: 'okra', phonetic: '/BHIN-dee/' },
+      { hindi: 'baigan', english: 'eggplant', phonetic: '/BAY-gun/' },
+      { hindi: 'mirch', english: 'chili pepper', phonetic: '/mirch/' },
     ],
   },
   {
@@ -78,53 +78,53 @@ const PRESETS = [
     icon: '\u{1F522}',
     desc: 'Numbers 1 to 10',
     cards: [
-      { hindi: 'ek', english: 'one (1)' },
-      { hindi: 'do', english: 'two (2)' },
-      { hindi: 'teen', english: 'three (3)' },
-      { hindi: 'chaar', english: 'four (4)' },
-      { hindi: 'paanch', english: 'five (5)' },
-      { hindi: 'chhah', english: 'six (6)' },
-      { hindi: 'saat', english: 'seven (7)' },
-      { hindi: 'aath', english: 'eight (8)' },
-      { hindi: 'nau', english: 'nine (9)' },
-      { hindi: 'das', english: 'ten (10)' },
+      { hindi: 'ek', english: 'one (1)', phonetic: '/ek/' },
+      { hindi: 'do', english: 'two (2)', phonetic: '/doh/' },
+      { hindi: 'teen', english: 'three (3)', phonetic: '/teen/' },
+      { hindi: 'chaar', english: 'four (4)', phonetic: '/chaar/' },
+      { hindi: 'paanch', english: 'five (5)', phonetic: '/paanch/' },
+      { hindi: 'chhah', english: 'six (6)', phonetic: '/chhuh/' },
+      { hindi: 'saat', english: 'seven (7)', phonetic: '/saat/' },
+      { hindi: 'aath', english: 'eight (8)', phonetic: '/aath/' },
+      { hindi: 'nau', english: 'nine (9)', phonetic: '/now/' },
+      { hindi: 'das', english: 'ten (10)', phonetic: '/dus/' },
     ],
   },
 ];
 
 // === WORD OF THE DAY ===
 const WORD_OF_THE_DAY_POOL = [
-  { hindi: 'pyaar', english: 'love' },
-  { hindi: 'dost', english: 'friend' },
-  { hindi: 'paani', english: 'water' },
-  { hindi: 'khana', english: 'food' },
-  { hindi: 'ghar', english: 'home' },
-  { hindi: 'kitaab', english: 'book' },
-  { hindi: 'sapna', english: 'dream' },
-  { hindi: 'raat', english: 'night' },
-  { hindi: 'din', english: 'day' },
-  { hindi: 'suraj', english: 'sun' },
-  { hindi: 'chaand', english: 'moon' },
-  { hindi: 'taara', english: 'star' },
-  { hindi: 'baarish', english: 'rain' },
-  { hindi: 'hawa', english: 'wind' },
-  { hindi: 'phool', english: 'flower' },
-  { hindi: 'ped', english: 'tree' },
-  { hindi: 'nadi', english: 'river' },
-  { hindi: 'pahad', english: 'mountain' },
-  { hindi: 'samundar', english: 'ocean' },
-  { hindi: 'aasmaan', english: 'sky' },
-  { hindi: 'zameen', english: 'earth / ground' },
-  { hindi: 'aag', english: 'fire' },
-  { hindi: 'khushi', english: 'happiness' },
-  { hindi: 'umeed', english: 'hope' },
-  { hindi: 'shakti', english: 'power / strength' },
-  { hindi: 'shanti', english: 'peace' },
-  { hindi: 'samay', english: 'time' },
-  { hindi: 'safar', english: 'journey' },
-  { hindi: 'zindagi', english: 'life' },
-  { hindi: 'rang', english: 'color' },
-  { hindi: 'awaaz', english: 'voice / sound' },
+  { hindi: 'pyaar', english: 'love', phonetic: '/pyaar/' },
+  { hindi: 'dost', english: 'friend', phonetic: '/dohst/' },
+  { hindi: 'paani', english: 'water', phonetic: '/PAA-nee/' },
+  { hindi: 'khana', english: 'food', phonetic: '/KHAH-nah/' },
+  { hindi: 'ghar', english: 'home', phonetic: '/ghur/' },
+  { hindi: 'kitaab', english: 'book', phonetic: '/ki-TAAB/' },
+  { hindi: 'sapna', english: 'dream', phonetic: '/SUP-nah/' },
+  { hindi: 'raat', english: 'night', phonetic: '/raat/' },
+  { hindi: 'din', english: 'day', phonetic: '/din/' },
+  { hindi: 'suraj', english: 'sun', phonetic: '/SOO-ruj/' },
+  { hindi: 'chaand', english: 'moon', phonetic: '/chaand/' },
+  { hindi: 'taara', english: 'star', phonetic: '/TAA-rah/' },
+  { hindi: 'baarish', english: 'rain', phonetic: '/BAA-rish/' },
+  { hindi: 'hawa', english: 'wind', phonetic: '/huh-VAH/' },
+  { hindi: 'phool', english: 'flower', phonetic: '/phool/' },
+  { hindi: 'ped', english: 'tree', phonetic: '/payd/' },
+  { hindi: 'nadi', english: 'river', phonetic: '/NUH-dee/' },
+  { hindi: 'pahad', english: 'mountain', phonetic: '/puh-HAAD/' },
+  { hindi: 'samundar', english: 'ocean', phonetic: '/suh-MUN-dur/' },
+  { hindi: 'aasmaan', english: 'sky', phonetic: '/aas-MAAN/' },
+  { hindi: 'zameen', english: 'earth / ground', phonetic: '/zuh-MEEN/' },
+  { hindi: 'aag', english: 'fire', phonetic: '/aag/' },
+  { hindi: 'khushi', english: 'happiness', phonetic: '/KHOO-shee/' },
+  { hindi: 'umeed', english: 'hope', phonetic: '/oo-MEED/' },
+  { hindi: 'shakti', english: 'power / strength', phonetic: '/SHUK-tee/' },
+  { hindi: 'shanti', english: 'peace', phonetic: '/SHAAN-tee/' },
+  { hindi: 'samay', english: 'time', phonetic: '/suh-MAY/' },
+  { hindi: 'safar', english: 'journey', phonetic: '/SUH-fur/' },
+  { hindi: 'zindagi', english: 'life', phonetic: '/zin-DUH-gee/' },
+  { hindi: 'rang', english: 'color', phonetic: '/rung/' },
+  { hindi: 'awaaz', english: 'voice / sound', phonetic: '/uh-VAAZ/' },
 ];
 
 function getTodaysWord() {
@@ -323,7 +323,7 @@ function renderCardList() {
   list.innerHTML = cards.map(card => `
     <div class="card-item" data-id="${card.id}">
       <div class="card-item-text">
-        <div class="card-item-hindi">${escapeHtml(card.hindi)}</div>
+        <div class="card-item-hindi">${escapeHtml(card.hindi)}${card.phonetic ? ' <span class="card-item-phonetic">' + escapeHtml(card.phonetic) + '</span>' : ''}</div>
         <div class="card-item-english">${escapeHtml(card.english)}</div>
       </div>
       <button class="btn-delete" onclick="deleteCard(${card.id})" title="Delete">
@@ -337,12 +337,14 @@ $('#card-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const hindi = $('#hindi-input').value.trim();
   const english = $('#english-input').value.trim();
+  const phonetic = $('#phonetic-input').value.trim();
   if (!hindi || !english) return;
 
   try {
-    await api('/api/cards', { method: 'POST', body: { hindi, english } });
+    await api('/api/cards', { method: 'POST', body: { hindi, english, phonetic } });
     $('#hindi-input').value = '';
     $('#english-input').value = '';
+    $('#phonetic-input').value = '';
     $('#hindi-input').focus();
     await loadCards();
   } catch (err) {
@@ -421,16 +423,22 @@ function renderStudyCard() {
   const flashcard = $('#flashcard');
   flashcard.classList.remove('flipped');
 
+  const phonetic = card.phonetic || '';
+
   if (showHindiFirst) {
     $('#front-label').textContent = 'HINDI';
     $('#front-text').textContent = card.hindi;
+    $('#front-phonetic').textContent = phonetic;
     $('#back-label').textContent = 'ENGLISH';
     $('#back-text').textContent = card.english;
+    $('#back-phonetic').textContent = '';
   } else {
     $('#front-label').textContent = 'ENGLISH';
     $('#front-text').textContent = card.english;
+    $('#front-phonetic').textContent = '';
     $('#back-label').textContent = 'HINDI';
     $('#back-text').textContent = card.hindi;
+    $('#back-phonetic').textContent = phonetic;
   }
 
   $('#current-card-num').textContent = currentIndex + 1;
@@ -540,6 +548,35 @@ $('#study-back').addEventListener('click', async () => {
   showView('home');
 });
 
+// === HINDI SPEECH (Web Speech API) ===
+function speakHindi(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'hi-IN';
+  utterance.rate = 0.85;
+
+  // Try to find a Hindi voice
+  const voices = window.speechSynthesis.getVoices();
+  const hindiVoice = voices.find(v => v.lang.startsWith('hi'));
+  if (hindiVoice) utterance.voice = hindiVoice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+// Preload voices (some browsers load async)
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+// Speak button in study mode
+$('#speak-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  const card = studyDeck[currentIndex];
+  if (card) speakHindi(card.hindi);
+});
+
 // === WORD OF THE DAY MODAL ===
 function showWordOfTheDay() {
   const word = getTodaysWord();
@@ -552,6 +589,7 @@ function showWordOfTheDay() {
 
   const modal = $('#wotd-modal');
   $('#wotd-hindi').textContent = word.hindi;
+  $('#wotd-phonetic').textContent = word.phonetic || '';
   $('#wotd-english').textContent = word.english;
   modal.hidden = false;
 
@@ -573,13 +611,19 @@ $('#wotd-close').addEventListener('click', () => {
   $('#wotd-modal').hidden = true;
 });
 
+$('#wotd-speak').addEventListener('click', (e) => {
+  e.stopPropagation();
+  const word = getTodaysWord();
+  speakHindi(word.hindi);
+});
+
 $('#wotd-add-btn').addEventListener('click', async () => {
   const word = getTodaysWord();
   const btn = $('#wotd-add-btn');
   btn.disabled = true;
   btn.textContent = '...';
   try {
-    await api('/api/cards', { method: 'POST', body: { hindi: word.hindi, english: word.english } });
+    await api('/api/cards', { method: 'POST', body: { hindi: word.hindi, english: word.english, phonetic: word.phonetic || '' } });
     btn.textContent = 'Added!';
     btn.classList.add('btn-wotd-done');
     // Refresh cards

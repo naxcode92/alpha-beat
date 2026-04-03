@@ -46,6 +46,16 @@ async function initDB(retries = 5) {
                 ADD CONSTRAINT study_sessions_user_date_unique UNIQUE (user_id, studied_at);
             END IF;
           END $$;
+
+          DO $$
+          BEGIN
+            IF NOT EXISTS (
+              SELECT 1 FROM information_schema.columns
+              WHERE table_name = 'cards' AND column_name = 'phonetic'
+            ) THEN
+              ALTER TABLE cards ADD COLUMN phonetic VARCHAR(500) DEFAULT '';
+            END IF;
+          END $$;
         `);
         console.log('Database tables initialized');
         return;

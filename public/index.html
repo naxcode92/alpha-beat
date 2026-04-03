@@ -118,6 +118,10 @@
         <label for="english-input">English</label>
         <input type="text" id="english-input" placeholder="e.g. hello" required>
       </div>
+      <div class="input-group">
+        <label for="phonetic-input">Phonetic <span class="optional-label">(optional)</span></label>
+        <input type="text" id="phonetic-input" placeholder="e.g. /nuh-MUS-tay/">
+      </div>
       <button type="submit" class="btn btn-primary">Add Card</button>
     </form>
 
@@ -166,15 +170,21 @@
           <div class="flashcard-face flashcard-front">
             <div class="card-label" id="front-label">HINDI</div>
             <div class="card-text" id="front-text"></div>
+            <div class="card-phonetic" id="front-phonetic"></div>
             <div class="tap-hint">tap to flip</div>
           </div>
           <div class="flashcard-face flashcard-back">
             <div class="card-label" id="back-label">ENGLISH</div>
             <div class="card-text" id="back-text"></div>
+            <div class="card-phonetic" id="back-phonetic"></div>
             <div class="tap-hint">tap to flip</div>
           </div>
         </div>
       </div>
+      <button id="speak-btn" class="btn btn-speak" title="Listen">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        Listen
+      </button>
 
       <div class="swipe-hint">swipe left/right to navigate</div>
 
@@ -199,6 +209,10 @@
       </button>
       <div class="wotd-badge">Word of the Day</div>
       <div class="wotd-hindi" id="wotd-hindi"></div>
+      <div class="wotd-phonetic" id="wotd-phonetic"></div>
+      <button id="wotd-speak" class="btn-speak-sm" title="Listen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      </button>
       <div class="wotd-divider"></div>
       <div class="wotd-english" id="wotd-english"></div>
       <button id="wotd-add-btn" class="btn btn-primary wotd-add">+ Add to My Cards</button>

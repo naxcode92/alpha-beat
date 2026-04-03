@@ -506,6 +506,21 @@ body {
   margin-top: 2px;
 }
 
+.card-item-phonetic {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.optional-label {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .card-item .btn-delete {
   width: 32px;
   height: 32px;
@@ -703,6 +718,14 @@ body {
   word-break: break-word;
 }
 
+.card-phonetic {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
 .tap-hint {
   position: absolute;
   bottom: 16px;
@@ -711,6 +734,45 @@ body {
   opacity: 0.5;
   text-transform: uppercase;
   letter-spacing: 1.5px;
+}
+
+/* === SPEAK / AUDIO BUTTONS === */
+.btn-speak {
+  padding: 10px 20px;
+  background: var(--white);
+  border: 2px solid var(--bg-dark);
+  color: var(--teal);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  gap: 6px;
+}
+
+.btn-speak:active {
+  background: var(--bg-dark);
+  transform: scale(0.97);
+}
+
+.btn-speak-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(26, 138, 125, 0.1);
+  color: var(--teal);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 4px;
+}
+
+.btn-speak-sm:active {
+  background: rgba(26, 138, 125, 0.2);
+  transform: scale(0.9);
 }
 
 /* === STUDY NAV === */
@@ -864,6 +926,13 @@ body {
   font-weight: 700;
   color: var(--indigo);
   margin-bottom: 12px;
+}
+
+.wotd-phonetic {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 8px;
 }
 
 .wotd-divider {
